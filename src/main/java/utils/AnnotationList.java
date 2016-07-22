@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class AnnotationList {
 
@@ -38,24 +39,25 @@ public class AnnotationList {
         }
     }
 
-    public void checkTheClassAnnotations(HttpServletRequest request, String met){
-        logger.info("Check class");
-        Class<CustomRequestHandler> obj = CustomRequestHandler.class;
+    public void checkTheClassAnnotations(HttpServletRequest request, String met, String path) {
 
-        if (obj.isAnnotationPresent(ClassAnnotation.class)) {
+        ClassListParser clp = new ClassListParser();
+        List<Class> allClasses = clp.getClassList(path);
+        for (Class obj : allClasses) {
+            if (obj.isAnnotationPresent(ClassAnnotation.class)) {
 
-            Annotation annotation = obj.getAnnotation(ClassAnnotation.class);
-            ClassAnnotation ann = (ClassAnnotation) annotation;
-
-            if(request.getAttribute("path").equals(ann.requestClassUrl())){
-                checkMethods(request, met);
+                Annotation annotation = obj.getAnnotation(ClassAnnotation.class);
+                ClassAnnotation ann = (ClassAnnotation) annotation;
+                if (request.getAttribute("path").equals(ann.requestClassUrl())) {
+                    checkMethods(request, met, obj);
+                }
             }
         }
     }
 
-    public void checkMethods(HttpServletRequest request, String met){
+    public void checkMethods(HttpServletRequest request, String met, Class obj) {
         logger.info("check methods");
-        Class<CustomRequestHandler> obj = CustomRequestHandler.class;
+//        Class<CustomRequestHandler> obj = CustomRequestHandler.class;
 
         for (Method method : obj.getDeclaredMethods()) {
 
@@ -64,8 +66,8 @@ public class AnnotationList {
                 Annotation annotation = method.getAnnotation(MethodAnnotation.class);
                 MethodAnnotation methodAnnotation = (MethodAnnotation) annotation;
 
-                if(request.getAttribute("method").equals(methodAnnotation.requestUrl())&&
-                        met.equals(methodAnnotation.method())){
+                if (request.getAttribute("method").equals(methodAnnotation.requestUrl()) &&
+                        met.equals(methodAnnotation.method())) {
                     try {
 //                        logger.info("In try");
                         Object o = obj.newInstance();

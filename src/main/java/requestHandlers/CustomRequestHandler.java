@@ -27,7 +27,7 @@ public class CustomRequestHandler {
     )
     void logRedirectedGetMethod2(){
 
-        logger.info("Path /getSome method GET");
+        logger.info("Path /getSome2 method GET");
 
     }
 

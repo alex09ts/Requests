@@ -1,18 +1,14 @@
 package servlets;
 
-import annotations.ClassAnnotation;
 import org.apache.log4j.Logger;
 import requestHandlers.CustomRequestHandler;
 import utils.AnnotationList;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.annotation.Annotation;
 
-@WebServlet("/index")
 public class CustomServlet extends HttpServlet{
 
     private static final Logger logger = Logger.getLogger(CustomRequestHandler.class);
@@ -32,19 +28,19 @@ public class CustomServlet extends HttpServlet{
 
         req.setAttribute("path", "/Request");
         req.setAttribute("method", "/getSome");
-        ann.checkTheClassAnnotations(req, "GET");
+        ann.checkTheClassAnnotations(req, "GET", "requestHandlers");
 
         req.setAttribute("method", "/getSome2");
-        ann.checkTheClassAnnotations(req, "GET");
+        ann.checkTheClassAnnotations(req, "GET", "requestHandlers");
 
         req.setAttribute("method", "/getSome");
-        ann.checkTheClassAnnotations(req, "POST");
+        ann.checkTheClassAnnotations(req, "POST", "requestHandlers");
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp){
-        ann.checkMethods(req, "POST");
+//        ann.checkMethods(req, "POST", "");
     }
 
 }

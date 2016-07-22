@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>CustomServlet</servlet-name>
-        <servlet-class>servlets.MainServlet</servlet-class>
+        <servlet-class>servlets.CustomServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
