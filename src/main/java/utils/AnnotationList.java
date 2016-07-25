@@ -2,6 +2,7 @@ package utils;
 
 import annotations.ClassAnnotation;
 import annotations.MethodAnnotation;
+import classHolders.ClassListHolder;
 import org.apache.log4j.Logger;
 import requestHandlers.CustomRequestHandler;
 
@@ -13,36 +14,13 @@ import java.util.List;
 
 public class AnnotationList {
 
+
     private static final Logger logger = Logger.getLogger(CustomRequestHandler.class);
-
-    public void getAnnotations() {
-        Class<CustomRequestHandler> obj = CustomRequestHandler.class;
-
-        if (obj.isAnnotationPresent(ClassAnnotation.class)) {
-
-            Annotation annotation = obj.getAnnotation(ClassAnnotation.class);
-            ClassAnnotation ann = (ClassAnnotation) annotation;
-
-            logger.info("Class annotations: " + ann.requestClassUrl());
-
-            for (Method method : obj.getDeclaredMethods()) {
-
-                if (method.isAnnotationPresent(MethodAnnotation.class)) {
-
-                    annotation = method.getAnnotation(MethodAnnotation.class);
-                    MethodAnnotation methodAnnotation = (MethodAnnotation) annotation;
-                    logger.info("Method annotations: " + methodAnnotation.requestUrl() + ", "
-                            + methodAnnotation.method());
-
-                }
-            }
-        }
-    }
 
     public void checkTheClassAnnotations(HttpServletRequest request, String met, String path) {
 
-        ClassListParser clp = new ClassListParser();
-        List<Class> allClasses = clp.getClassList(path);
+        ClassListHolder clp = new ClassListHolder(path);
+        List<Class> allClasses = clp.getClassList();
         for (Class obj : allClasses) {
             if (obj.isAnnotationPresent(ClassAnnotation.class)) {
 
@@ -57,7 +35,6 @@ public class AnnotationList {
 
     public void checkMethods(HttpServletRequest request, String met, Class obj) {
         logger.info("check methods");
-//        Class<CustomRequestHandler> obj = CustomRequestHandler.class;
 
         for (Method method : obj.getDeclaredMethods()) {
 
@@ -69,13 +46,9 @@ public class AnnotationList {
                 if (request.getAttribute("method").equals(methodAnnotation.requestUrl()) &&
                         met.equals(methodAnnotation.method())) {
                     try {
-//                        logger.info("In try");
                         Object o = obj.newInstance();
-//                        logger.info("new instance");
                         method.setAccessible(true);
-//                        logger.info("Set access");
                         method.invoke(o, null);
-//                        logger.info("invoke");
                     } catch (InvocationTargetException x) {
                         logger.error("Error while invoking method");
                     } catch (IllegalAccessException e) {

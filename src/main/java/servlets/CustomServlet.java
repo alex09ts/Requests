@@ -3,6 +3,7 @@ package servlets;
 import org.apache.log4j.Logger;
 import requestHandlers.CustomRequestHandler;
 import utils.AnnotationList;
+import utils.UtilFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomServlet extends HttpServlet{
 
     private static final Logger logger = Logger.getLogger(CustomRequestHandler.class);
-    AnnotationList ann;
+    private AnnotationList ann = UtilFactory.INSTANCE.getAnnotationList();
+
     @Override
     public void init() throws ServletException {
-
-        ann = new AnnotationList();
-        ann.getAnnotations();
-
     }
 
     @Override

@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-/**
- * Created by noname on 22.07.16.
- */
 public class ClassFinder {
+
     public List<String> getPackageClassess(String path){
         try {
             List<String> list = new ArrayList<String>();
@@ -33,4 +31,6 @@ public class ClassFinder {
         }
         return null;
     }
+
+
 }
