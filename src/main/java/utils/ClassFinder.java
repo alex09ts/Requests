@@ -1,14 +1,13 @@
 package utils;
 
+import factory.ClassFactory;
 import org.apache.log4j.Logger;
 import requestHandlers.GetRequestHandler;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 public class ClassFinder {
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
@@ -36,6 +35,4 @@ public class ClassFinder {
         }
         return null;
     }
-
-
 }

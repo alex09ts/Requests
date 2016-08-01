@@ -1,6 +1,9 @@
 package factory;
 
 import classHolders.ClassListHolder;
+import requestHandlers.GetRequestHandler;
+import requestHandlers.PostRequestHandler;
+import requestHandlers.UselessRequestHandler;
 import utils.AnnotationList;
 import utils.ClassFinder;
 
@@ -24,5 +27,28 @@ public enum ClassFactory {
         final ClassListHolder classListHolder;
         classListHolder = new ClassListHolder();
         return classListHolder;
+    }
+
+    public GetRequestHandler getRequestHandler() {
+
+        final GetRequestHandler getRequestHandler;
+        getRequestHandler = new GetRequestHandler();
+        return getRequestHandler;
+    }
+
+
+    public PostRequestHandler getPostHandler() {
+
+        final PostRequestHandler postRequestHandler;
+        postRequestHandler = new PostRequestHandler();
+        return postRequestHandler;
+    }
+
+
+    public UselessRequestHandler getUselessHandler() {
+
+        final UselessRequestHandler uselessRequestHandler;
+        uselessRequestHandler = new UselessRequestHandler();
+        return uselessRequestHandler;
     }
 }
