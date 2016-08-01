@@ -23,17 +23,17 @@ public class CustomServlet extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
 
         logger.error("Вызван метод doGet");
+        logger.info(req.getPathInfo()+"  "+req.getServletPath());
+//        req.setAttribute("path", "/GetRequest");
+//        req.setAttribute("method", "/getSome");
+        ann.checkTheClassAnnotations(req, resp, "requestHandlers");
 
-        req.setAttribute("path", "/GetRequest");
-        req.setAttribute("method", "/getSome");
-        ann.checkTheClassAnnotations(req, "GET", "requestHandlers");
-
-        req.setAttribute("method", "/getSome2");
-        ann.checkTheClassAnnotations(req, "GET", "requestHandlers");
-
-        req.setAttribute("path", "/PostRequest");
-        req.setAttribute("method", "/getSome");
-        ann.checkTheClassAnnotations(req, "POST", "requestHandlers");
+//        req.setAttribute("method", "/getSome2");
+//        ann.checkTheClassAnnotations(req, "GET", "requestHandlers");
+//
+//        req.setAttribute("path", "/PostRequest");
+//        req.setAttribute("method", "/getSome");
+//        ann.checkTheClassAnnotations(req, "POST", "requestHandlers");
 
     }
 
