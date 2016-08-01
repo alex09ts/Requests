@@ -2,7 +2,7 @@ package classHolders;
 
 import org.apache.log4j.Logger;
 import utils.ClassFinder;
-import utils.UtilFactory;
+import factory.ClassFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class ClassListHolder {
 
     private List<Class> classList;
-    private ClassFinder cf = UtilFactory.INSTANCE.getClassFinder();
+    private ClassFinder cf = ClassFactory.INSTANCE.getClassFinder();
     private static final Logger logger = Logger.getLogger(ClassListHolder.class);
 
 

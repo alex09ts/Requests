@@ -3,6 +3,7 @@ package utils;
 import annotations.ClassAnnotation;
 import annotations.MethodAnnotation;
 import classHolders.ClassListHolder;
+import factory.ClassFactory;
 import org.apache.log4j.Logger;
 import requestHandlers.GetRequestHandler;
 
@@ -17,14 +18,14 @@ public class AnnotationList {
 
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
+    private static final ClassListHolder clp = ClassFactory.INSTANCE.getClassListHolder();
 
     public void checkTheClassAnnotations(HttpServletRequest request, HttpServletResponse resp, String path) {
         logger.info("Class check");
-        ClassListHolder clp = new ClassListHolder();
+
         List<Class> allClasses = clp.getClassList(path);
         for (Class obj : allClasses) {
             if (obj.isAnnotationPresent(ClassAnnotation.class)) {
-
                 Annotation annotation = obj.getAnnotation(ClassAnnotation.class);
                 ClassAnnotation ann = (ClassAnnotation) annotation;
                 logger.info(request.getServletPath()+" compare to "+ann.requestClassUrl());
@@ -48,9 +49,8 @@ public class AnnotationList {
                 if (request.getParameter("param").equals(methodAnnotation.requestUrl()) &&
                         request.getMethod().equals(methodAnnotation.method())) {
                     try {
-                        Object o = obj.newInstance();
                         method.setAccessible(true);
-                        method.invoke(o, request, resp);
+                        method.invoke(obj.newInstance(), request, resp);
                     } catch (InvocationTargetException x) {
                         logger.error("Error while invoking method");
                     } catch (IllegalAccessException e) {

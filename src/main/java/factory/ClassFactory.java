@@ -1,8 +1,10 @@
-package utils;
+package factory;
 
 import classHolders.ClassListHolder;
+import utils.AnnotationList;
+import utils.ClassFinder;
 
-public enum UtilFactory {
+public enum ClassFactory {
 
     INSTANCE;
 
@@ -15,5 +17,12 @@ public enum UtilFactory {
         final ClassFinder classFinder;
         classFinder = new ClassFinder();
         return classFinder;
+    }
+
+    public ClassListHolder getClassListHolder() {
+
+        final ClassListHolder classListHolder;
+        classListHolder = new ClassListHolder();
+        return classListHolder;
     }
 }
