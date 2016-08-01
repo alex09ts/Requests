@@ -1,7 +1,7 @@
 package servlets;
 
 import org.apache.log4j.Logger;
-import requestHandlers.CustomRequestHandler;
+import requestHandlers.GetRequestHandler;
 import utils.AnnotationList;
 import utils.UtilFactory;
 
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CustomServlet extends HttpServlet{
 
-    private static final Logger logger = Logger.getLogger(CustomRequestHandler.class);
+    private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
     private AnnotationList ann = UtilFactory.INSTANCE.getAnnotationList();
 
     @Override
@@ -24,13 +24,14 @@ public class CustomServlet extends HttpServlet{
 
         logger.error("Вызван метод doGet");
 
-        req.setAttribute("path", "/Request");
+        req.setAttribute("path", "/GetRequest");
         req.setAttribute("method", "/getSome");
         ann.checkTheClassAnnotations(req, "GET", "requestHandlers");
 
         req.setAttribute("method", "/getSome2");
         ann.checkTheClassAnnotations(req, "GET", "requestHandlers");
 
+        req.setAttribute("path", "/PostRequest");
         req.setAttribute("method", "/getSome");
         ann.checkTheClassAnnotations(req, "POST", "requestHandlers");
 

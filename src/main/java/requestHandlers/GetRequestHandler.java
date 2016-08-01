@@ -5,11 +5,11 @@ import annotations.MethodAnnotation;
 import org.apache.log4j.Logger;
 
 @ClassAnnotation(
-        requestClassUrl = "/Request"
+        requestClassUrl = "/GetRequest"
 )
-public class CustomRequestHandler {
+public class GetRequestHandler {
 
-    private static final Logger logger = Logger.getLogger(CustomRequestHandler.class);
+    private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
 
     @MethodAnnotation(
             requestUrl = "/getSome",
@@ -28,16 +28,6 @@ public class CustomRequestHandler {
     void logRedirectedGetMethod2(){
 
         logger.info("Path /getSome2 method GET");
-
-    }
-
-    @MethodAnnotation(
-            requestUrl = "/getSome",
-            method = "POST"
-    )
-    void logRedirectedPostMethod(){
-
-        logger.info("Path /getSome method POST");
 
     }
 

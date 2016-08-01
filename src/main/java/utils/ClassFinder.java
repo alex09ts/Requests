@@ -1,5 +1,8 @@
 package utils;
 
+import org.apache.log4j.Logger;
+import requestHandlers.GetRequestHandler;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -8,6 +11,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class ClassFinder {
+    private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
 
     public List<String> getPackageClassess(String path){
         try {
@@ -17,6 +21,7 @@ public class ClassFinder {
                 URL url = urls.nextElement();
                 File dir = new File(url.getFile());
                 for (File f : dir.listFiles()) {
+
                     list.add(
                             f.toPath().getParent().getFileName().toString()
                             +"."

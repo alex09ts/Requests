@@ -4,7 +4,7 @@ import annotations.ClassAnnotation;
 import annotations.MethodAnnotation;
 import classHolders.ClassListHolder;
 import org.apache.log4j.Logger;
-import requestHandlers.CustomRequestHandler;
+import requestHandlers.GetRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
@@ -15,17 +15,18 @@ import java.util.List;
 public class AnnotationList {
 
 
-    private static final Logger logger = Logger.getLogger(CustomRequestHandler.class);
+    private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
 
     public void checkTheClassAnnotations(HttpServletRequest request, String met, String path) {
-
-        ClassListHolder clp = new ClassListHolder(path);
-        List<Class> allClasses = clp.getClassList();
+        logger.info("Class check");
+        ClassListHolder clp = new ClassListHolder();
+        List<Class> allClasses = clp.getClassList(path);
         for (Class obj : allClasses) {
             if (obj.isAnnotationPresent(ClassAnnotation.class)) {
 
                 Annotation annotation = obj.getAnnotation(ClassAnnotation.class);
                 ClassAnnotation ann = (ClassAnnotation) annotation;
+                logger.info(request.getAttribute("path")+" compare to "+ann.requestClassUrl());
                 if (request.getAttribute("path").equals(ann.requestClassUrl())) {
                     checkMethods(request, met, obj);
                 }

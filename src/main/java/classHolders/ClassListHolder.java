@@ -1,5 +1,6 @@
 package classHolders;
 
+import org.apache.log4j.Logger;
 import utils.ClassFinder;
 import utils.UtilFactory;
 
@@ -10,29 +11,29 @@ public class ClassListHolder {
 
     private List<Class> classList;
     private ClassFinder cf = UtilFactory.INSTANCE.getClassFinder();
-
-    public ClassListHolder(String path){
-        classList = parseClassList(path);
-    }
-
-    public List<Class> parseClassList(String path){
+    private static final Logger logger = Logger.getLogger(ClassListHolder.class);
 
 
-        List<Class> list = new ArrayList<Class>();
+    private void parseClassList(String path){
+
+        classList = new ArrayList<Class>();
         List<String> allClasses = cf.getPackageClassess(path);
 
         for(String str:allClasses){
             try {
-                list.add(Class.forName(str));
+                classList.add(Class.forName(str));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        return list;
-
     }
 
-    public List<Class> getClassList(){
+    public List<Class> getClassList(String path){
+
+        if(classList==null){
+            logger.info("Class list is empty");
+            parseClassList(path);
+        }
         return classList;
     }
 }
