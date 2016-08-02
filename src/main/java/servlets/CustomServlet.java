@@ -26,7 +26,7 @@ public class CustomServlet extends HttpServlet{
         logger.error("Вызван метод doGet");
         logger.info(req.getPathInfo() + "  " + req.getServletPath());
 
-        ann.checkTheClassAnnotations(req, resp, "requestHandlers");
+        ann.checkTheClassAnnotations(req, resp, getInitParameter("package"));
     }
 
     @Override

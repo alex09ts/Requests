@@ -8,6 +8,10 @@
     <servlet>
         <servlet-name>CustomServlet</servlet-name>
         <servlet-class>servlets.CustomServlet</servlet-class>
+        <init-param>
+            <param-name>package</param-name>
+            <param-value>requestHandlers</param-value>
+        </init-param>
     </servlet>
 
     <servlet-mapping>

@@ -1,6 +1,5 @@
 package utils;
 
-import factory.ClassFactory;
 import org.apache.log4j.Logger;
 import requestHandlers.GetRequestHandler;
 
