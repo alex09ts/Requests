@@ -7,6 +7,7 @@ import classHolders.ObjectHolder;
 import factory.ClassFactory;
 import org.apache.log4j.Logger;
 import requestHandlers.GetRequestHandler;
+import requestHandlers.HandlerInterface;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,12 +15,13 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 public class AnnotationList {
 
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
-    private static final ClassListHolder clp = ClassFactory.INSTANCE.getClassListHolder();
+    private static final ClassListHolder clp = ClassFactory.getClassListHolder();
 
     public void checkTheClassAnnotations(HttpServletRequest request, HttpServletResponse resp, String path) {
         logger.info("Class check");
@@ -47,11 +49,18 @@ public class AnnotationList {
                 Annotation annotation = method.getAnnotation(MethodAnnotation.class);
                 MethodAnnotation methodAnnotation = (MethodAnnotation) annotation;
                 logger.info(request.getParameter("param") + " compare to " + methodAnnotation.requestUrl());
+                logger.info(request.getParameter("param").equals(methodAnnotation.requestUrl()) &&
+                        request.getMethod().equals(methodAnnotation.method()));
                 if (request.getParameter("param").equals(methodAnnotation.requestUrl()) &&
                         request.getMethod().equals(methodAnnotation.method())) {
                     try {
+                        ObjectHolder oh = new ObjectHolder();
+                        oh.getList();
+                        Map<String, Object> map = oh.getSingletoneMap();
+
                         logger.info(obj.getName());
-                        Object o = ObjectHolder.getSingletoneMap().get(obj.getName());
+                        HandlerInterface o = (HandlerInterface)map.get(obj.getName());
+                        logger.info("Object o : "+o.getClass().getName());
                         method.setAccessible(true);
                         method.invoke(o, request, resp);
                     } catch (InvocationTargetException x) {

@@ -7,22 +7,22 @@ import requestHandlers.UselessRequestHandler;
 import utils.AnnotationList;
 import utils.ClassFinder;
 
-public enum ClassFactory {
+public class ClassFactory {
 
-    INSTANCE;
+//    INSTANCE;
 
-    public AnnotationList getAnnotationList() {
+    public static AnnotationList getAnnotationList() {
         final AnnotationList annotationList;
         annotationList = new AnnotationList();
         return annotationList;
     }
-    public ClassFinder getClassFinder() {
+    public static ClassFinder getClassFinder() {
         final ClassFinder classFinder;
         classFinder = new ClassFinder();
         return classFinder;
     }
 
-    public ClassListHolder getClassListHolder() {
+    public static ClassListHolder getClassListHolder() {
 
         final ClassListHolder classListHolder;
         classListHolder = new ClassListHolder();

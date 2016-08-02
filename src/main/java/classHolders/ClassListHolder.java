@@ -10,7 +10,8 @@ import java.util.List;
 public class ClassListHolder {
 
     private List<Class> classList;
-    private ClassFinder cf = ClassFactory.INSTANCE.getClassFinder();
+//    private ClassFinder cf = ClassFactory.INSTANCE.getClassFinder();
+    private ClassFinder cf = ClassFactory.getClassFinder();
     private static final Logger logger = Logger.getLogger(ClassListHolder.class);
 
 
@@ -21,6 +22,7 @@ public class ClassListHolder {
 
         for(String str:allClasses){
             try {
+                logger.info(Class.forName(str));
                 classList.add(Class.forName(str));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();

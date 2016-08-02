@@ -11,7 +11,7 @@ import java.io.IOException;
 @ClassAnnotation(
         requestClassUrl = "/GetRequest"
 )
-public class GetRequestHandler {
+public class GetRequestHandler implements HandlerInterface{
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
 
@@ -40,4 +40,11 @@ public class GetRequestHandler {
 
     }
 
+    @MethodAnnotation(
+            requestUrl = "getSome3",
+            method = "GET"
+    )
+    public void method1() {
+        System.out.println("Executed");
+    }
 }

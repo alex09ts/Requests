@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomServlet extends HttpServlet{
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
-    private AnnotationList ann = ClassFactory.INSTANCE.getAnnotationList();
+    private AnnotationList ann = ClassFactory.getAnnotationList();
 
     @Override
     public void init() throws ServletException {
