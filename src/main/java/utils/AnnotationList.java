@@ -29,6 +29,7 @@ public class AnnotationList {
         List<Class> allClasses = clp.getClassList(path);
         for (Class obj : allClasses) {
             if (obj.isAnnotationPresent(ClassAnnotation.class)) {
+
                 Annotation annotation = obj.getAnnotation(ClassAnnotation.class);
                 ClassAnnotation ann = (ClassAnnotation) annotation;
                 logger.info(request.getServletPath() + " compare to " + ann.requestClassUrl());
@@ -54,15 +55,15 @@ public class AnnotationList {
                 if (request.getParameter("param").equals(methodAnnotation.requestUrl()) &&
                         request.getMethod().equals(methodAnnotation.method())) {
                     try {
-                        ObjectHolder oh = new ObjectHolder();
-                        oh.getList();
-                        Map<String, Object> map = oh.getSingletoneMap();
+                        Map<String, Object> map = ObjectHolder.getSingletoneMap();
+                        HandlerInterface o = (HandlerInterface) map.get(obj.getName());
 
                         logger.info(obj.getName());
-                        HandlerInterface o = (HandlerInterface)map.get(obj.getName());
-                        logger.info("Object o : "+o.getClass().getName());
+                        logger.info("Object o : " + o.getClass().getName());
+
                         method.setAccessible(true);
                         method.invoke(o, request, resp);
+
                     } catch (InvocationTargetException x) {
                         logger.error("Error while invoking method");
                     } catch (IllegalAccessException e) {

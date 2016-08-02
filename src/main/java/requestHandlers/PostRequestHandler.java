@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 @ClassAnnotation(
         requestClassUrl = "/PostRequest"
 )
-public class PostRequestHandler {
+public class PostRequestHandler implements HandlerInterface {
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
 
@@ -18,6 +18,10 @@ public class PostRequestHandler {
     void logRedirectedPostMethod(){
 
         logger.info("Path /getSome method POST");
+
+    }
+
+    public void method1() {
 
     }
 }

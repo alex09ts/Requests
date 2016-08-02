@@ -23,7 +23,7 @@ public class GetRequestHandler implements HandlerInterface{
 
         logger.info("Path /getSome method GET EXECUTED!!!");
         try {
-            resp.sendRedirect("index.jsp");
+            resp.sendRedirect("redirect.jsp");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,10 +34,15 @@ public class GetRequestHandler implements HandlerInterface{
             requestUrl = "getSome2",
             method = "GET"
     )
-    void logRedirectedGetMethod2(){
+    void logRedirectedGetMethod2(HttpServletRequest req, HttpServletResponse resp){
 
         logger.info("Path /getSome2 method GET");
 
+        try {
+            resp.sendRedirect("redirect2.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @MethodAnnotation(
