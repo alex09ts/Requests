@@ -9,46 +9,56 @@ import utils.ClassFinder;
 
 public class ClassFactory {
 
-//    INSTANCE;
+    private static AnnotationList annotationList;
+    private static ClassFinder classFinder;
+    private static ClassListHolder classListHolder;
+    private static GetRequestHandler getRequestHandler;
+    private static PostRequestHandler postRequestHandler;
+    private static UselessRequestHandler uselessRequestHandler;
 
     public static AnnotationList getAnnotationList() {
-        final AnnotationList annotationList;
-        annotationList = new AnnotationList();
+        if (annotationList == null) {
+            annotationList = new AnnotationList();
+        }
         return annotationList;
     }
+
     public static ClassFinder getClassFinder() {
-        final ClassFinder classFinder;
-        classFinder = new ClassFinder();
+        if (classFinder == null) {
+            classFinder = new ClassFinder();
+        }
         return classFinder;
     }
 
     public static ClassListHolder getClassListHolder() {
-
-        final ClassListHolder classListHolder;
-        classListHolder = new ClassListHolder();
+        if (classListHolder == null) {
+            classListHolder = new ClassListHolder();
+        }
         return classListHolder;
     }
 
     public GetRequestHandler getRequestHandler() {
-
-        final GetRequestHandler getRequestHandler;
-        getRequestHandler = new GetRequestHandler();
+        if (getRequestHandler == null) {
+            getRequestHandler = new GetRequestHandler();
+        }
         return getRequestHandler;
     }
 
 
     public PostRequestHandler getPostHandler() {
 
-        final PostRequestHandler postRequestHandler;
-        postRequestHandler = new PostRequestHandler();
+        if (postRequestHandler == null) {
+            postRequestHandler = new PostRequestHandler();
+        }
         return postRequestHandler;
     }
 
 
     public UselessRequestHandler getUselessHandler() {
 
-        final UselessRequestHandler uselessRequestHandler;
-        uselessRequestHandler = new UselessRequestHandler();
+        if (uselessRequestHandler == null) {
+            uselessRequestHandler = new UselessRequestHandler();
+        }
         return uselessRequestHandler;
     }
 }

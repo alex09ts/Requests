@@ -19,7 +19,7 @@ public class GetRequestHandler implements HandlerInterface{
             requestUrl = "getSome",
             method = "GET"
     )
-    void logRedirectedGetMethod(HttpServletRequest req, HttpServletResponse resp){
+    public void redirect(HttpServletRequest req, HttpServletResponse resp){
 
         logger.info("Path /getSome method GET EXECUTED!!!");
         try {
@@ -34,7 +34,7 @@ public class GetRequestHandler implements HandlerInterface{
             requestUrl = "getSome2",
             method = "GET"
     )
-    void logRedirectedGetMethod2(HttpServletRequest req, HttpServletResponse resp){
+    public void redirect2(HttpServletRequest req, HttpServletResponse resp){
 
         logger.info("Path /getSome2 method GET");
 
@@ -45,11 +45,4 @@ public class GetRequestHandler implements HandlerInterface{
         }
     }
 
-    @MethodAnnotation(
-            requestUrl = "getSome3",
-            method = "GET"
-    )
-    public void method1() {
-        System.out.println("Executed");
-    }
 }

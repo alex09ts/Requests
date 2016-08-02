@@ -21,7 +21,7 @@ public class AnnotationList {
 
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
-    private static final ClassListHolder clp = ClassFactory.getClassListHolder();
+    private static final ClassListHolder clp = (ClassListHolder)ObjectHolder.getSingletoneMap().get("classHolders.ClassListHolder");
 
     public void checkTheClassAnnotations(HttpServletRequest request, HttpServletResponse resp, String path) {
         logger.info("Class check");
