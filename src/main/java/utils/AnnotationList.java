@@ -4,10 +4,9 @@ import annotations.ClassAnnotation;
 import annotations.MethodAnnotation;
 import classHolders.ClassListHolder;
 import classHolders.ObjectHolder;
-import factory.ClassFactory;
 import org.apache.log4j.Logger;
 import requestHandlers.GetRequestHandler;
-import requestHandlers.HandlerInterface;
+import requestInterface.HandlerInterface;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +20,7 @@ public class AnnotationList {
 
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
-    private static final ClassListHolder clp = (ClassListHolder)ObjectHolder.getSingletoneMap().get("classHolders.ClassListHolder");
+    private static final ClassListHolder clp = (ClassListHolder)ObjectHolder.getSingletoneMap().get(Utils.getClassListHolderPath());
 
     public void checkTheClassAnnotations(HttpServletRequest request, HttpServletResponse resp, String path) {
         logger.info("Class check");
@@ -49,10 +48,10 @@ public class AnnotationList {
 
                 Annotation annotation = method.getAnnotation(MethodAnnotation.class);
                 MethodAnnotation methodAnnotation = (MethodAnnotation) annotation;
-                logger.info(request.getParameter("param") + " compare to " + methodAnnotation.requestUrl());
-                logger.info(request.getParameter("param").equals(methodAnnotation.requestUrl()) &&
+                logger.info(request.getParameter(Utils.getParametr()) + " compare to " + methodAnnotation.requestUrl());
+                logger.info(request.getParameter(Utils.getParametr()).equals(methodAnnotation.requestUrl()) &&
                         request.getMethod().equals(methodAnnotation.method()));
-                if (request.getParameter("param").equals(methodAnnotation.requestUrl()) &&
+                if (request.getParameter(Utils.getParametr()).equals(methodAnnotation.requestUrl()) &&
                         request.getMethod().equals(methodAnnotation.method())) {
                     try {
                         Map<String, Object> map = ObjectHolder.getSingletoneMap();

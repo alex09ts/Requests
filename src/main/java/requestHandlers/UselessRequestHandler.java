@@ -2,6 +2,7 @@ package requestHandlers;
 
 import annotations.ClassAnnotation;
 import annotations.MethodAnnotation;
+import requestInterface.HandlerInterface;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

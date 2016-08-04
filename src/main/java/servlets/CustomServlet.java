@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import requestHandlers.GetRequestHandler;
 import utils.AnnotationList;
 import factory.ClassFactory;
+import utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,13 +26,12 @@ public class CustomServlet extends HttpServlet{
 
         logger.error("Вызван метод doGet");
         logger.info(req.getPathInfo() + "  " + req.getServletPath());
-
-        ann.checkTheClassAnnotations(req, resp, getInitParameter("package"));
+        ann.checkTheClassAnnotations(req, resp, Utils.getPackageName());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp){
-        ann.checkTheClassAnnotations(req, resp, "requestHandlers");
+        ann.checkTheClassAnnotations(req, resp, Utils.getPackageName());
     }
 
 }

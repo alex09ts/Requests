@@ -10,8 +10,8 @@ import java.util.List;
 public class ClassListHolder {
 
     private List<Class> classList;
-//    private ClassFinder cf = ClassFactory.INSTANCE.getClassFinder();
-    private ClassFinder cf = (ClassFinder)ObjectHolder.getSingletoneMap().get("utils.ClassFinder");
+    private ClassFinder cf = ClassFactory.getClassFinder();
+//    private ClassFinder cf = (ClassFinder)ObjectHolder.getSingletoneMap().get("utils.ClassFinder");
     private static final Logger logger = Logger.getLogger(ClassListHolder.class);
 
 

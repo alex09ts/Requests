@@ -3,6 +3,7 @@ package requestHandlers;
 import annotations.ClassAnnotation;
 import annotations.MethodAnnotation;
 import org.apache.log4j.Logger;
+import requestInterface.HandlerInterface;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,7 @@ import java.io.IOException;
 @ClassAnnotation(
         requestClassUrl = "/GetRequest"
 )
-public class GetRequestHandler implements HandlerInterface{
+public class GetRequestHandler implements HandlerInterface {
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
 

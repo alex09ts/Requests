@@ -12,9 +12,6 @@ public class ClassFactory {
     private static AnnotationList annotationList;
     private static ClassFinder classFinder;
     private static ClassListHolder classListHolder;
-    private static GetRequestHandler getRequestHandler;
-    private static PostRequestHandler postRequestHandler;
-    private static UselessRequestHandler uselessRequestHandler;
 
     public static AnnotationList getAnnotationList() {
         if (annotationList == null) {
@@ -35,30 +32,5 @@ public class ClassFactory {
             classListHolder = new ClassListHolder();
         }
         return classListHolder;
-    }
-
-    public GetRequestHandler getRequestHandler() {
-        if (getRequestHandler == null) {
-            getRequestHandler = new GetRequestHandler();
-        }
-        return getRequestHandler;
-    }
-
-
-    public PostRequestHandler getPostHandler() {
-
-        if (postRequestHandler == null) {
-            postRequestHandler = new PostRequestHandler();
-        }
-        return postRequestHandler;
-    }
-
-
-    public UselessRequestHandler getUselessHandler() {
-
-        if (uselessRequestHandler == null) {
-            uselessRequestHandler = new UselessRequestHandler();
-        }
-        return uselessRequestHandler;
     }
 }
