@@ -2,8 +2,6 @@ package utils;
 
 import annotations.ClassAnnotation;
 import annotations.MethodAnnotation;
-import classHolders.ClassListHolder;
-import classHolders.ObjectHolder;
 import org.apache.log4j.Logger;
 import requestHandlers.GetRequestHandler;
 import requestInterface.HandlerInterface;
@@ -20,46 +18,46 @@ public class AnnotationList {
 
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
-    private static final ClassListHolder clp = (ClassListHolder)ObjectHolder.getSingletoneMap().get(Utils.getClassListHolderPath());
+    private List<Class> allClasses;
+    private Map<String, Object> objectMap;
 
-    public void checkTheClassAnnotations(HttpServletRequest request, HttpServletResponse resp, String path) {
+    public AnnotationList(List<Class> allClasses, Map<String, Object> objectMap) {
+        this.allClasses = allClasses;
+        this.objectMap = objectMap;
+    }
+
+    public void checkTheClassAnnotations(HttpServletRequest request, HttpServletResponse resp) {
         logger.info("Class check");
+        for (Class clazz : allClasses) {
+            if (clazz.isAnnotationPresent(ClassAnnotation.class)) {
 
-        List<Class> allClasses = clp.getClassList(path);
-        for (Class obj : allClasses) {
-            if (obj.isAnnotationPresent(ClassAnnotation.class)) {
-
-                Annotation annotation = obj.getAnnotation(ClassAnnotation.class);
+                Annotation annotation = clazz.getAnnotation(ClassAnnotation.class);
                 ClassAnnotation ann = (ClassAnnotation) annotation;
                 logger.info(request.getServletPath() + " compare to " + ann.requestClassUrl());
                 if (request.getServletPath().equals(ann.requestClassUrl())) {
-                    checkMethods(request, resp, obj);
+                    checkMethods(request, resp, clazz);
                 }
             }
         }
     }
 
-    public void checkMethods(HttpServletRequest request, HttpServletResponse resp, Class obj) {
+    public void checkMethods(HttpServletRequest request, HttpServletResponse resp, Class clazz) {
         logger.info("check methods");
 
-        for (Method method : obj.getDeclaredMethods()) {
+        for (Method method : clazz.getDeclaredMethods()) {
 
             if (method.isAnnotationPresent(MethodAnnotation.class)) {
 
                 Annotation annotation = method.getAnnotation(MethodAnnotation.class);
                 MethodAnnotation methodAnnotation = (MethodAnnotation) annotation;
-                logger.info(request.getParameter(Utils.getParametr()) + " compare to " + methodAnnotation.requestUrl());
-                logger.info(request.getParameter(Utils.getParametr()).equals(methodAnnotation.requestUrl()) &&
+                logger.info(request.getParameter("param") + " compare to " + methodAnnotation.requestUrl());
+                logger.info(request.getParameter("param").equals(methodAnnotation.requestUrl()) &&
                         request.getMethod().equals(methodAnnotation.method()));
-                if (request.getParameter(Utils.getParametr()).equals(methodAnnotation.requestUrl()) &&
+                if (request.getParameter("param").equals(methodAnnotation.requestUrl()) &&
                         request.getMethod().equals(methodAnnotation.method())) {
                     try {
-                        Map<String, Object> map = ObjectHolder.getSingletoneMap();
-                        HandlerInterface o = (HandlerInterface) map.get(obj.getName());
 
-                        logger.info(obj.getName());
-                        logger.info("Object o : " + o.getClass().getName());
-
+                        HandlerInterface o = (HandlerInterface) objectMap.get(clazz.getName());
                         method.setAccessible(true);
                         method.invoke(o, request, resp);
 
@@ -69,8 +67,6 @@ public class AnnotationList {
                         logger.error("Error Illegal Access");
                     }
                 }
-
-
             }
         }
     }

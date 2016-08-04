@@ -1,11 +1,9 @@
 package servlets;
 
-import classHolders.ObjectHolder;
 import org.apache.log4j.Logger;
 import requestHandlers.GetRequestHandler;
+import starter.InitComponents;
 import utils.AnnotationList;
-import factory.ClassFactory;
-import utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,23 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomServlet extends HttpServlet{
 
     private static final Logger logger = Logger.getLogger(GetRequestHandler.class);
-    private AnnotationList ann = (AnnotationList)ObjectHolder.getSingletoneMap().get("utils.AnnotationList");
+    private AnnotationList annotationList;
 
     @Override
     public void init() throws ServletException {
+        InitComponents io = new InitComponents(getInitParameter("package"));
+        annotationList = io.getAnnotationList();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
 
-        logger.error("Вызван метод doGet");
+        logger.info("Вызван метод doGet");
         logger.info(req.getPathInfo() + "  " + req.getServletPath());
-        ann.checkTheClassAnnotations(req, resp, Utils.getPackageName());
+        annotationList.checkTheClassAnnotations(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp){
-        ann.checkTheClassAnnotations(req, resp, Utils.getPackageName());
+        annotationList.checkTheClassAnnotations(req, resp);
     }
 
 }

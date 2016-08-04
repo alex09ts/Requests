@@ -1,26 +1,43 @@
 package classHolders;
 
 import org.apache.log4j.Logger;
-import utils.ClassFinder;
-import factory.ClassFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClassListHolder {
 
     private List<Class> classList;
-    private ClassFinder cf = ClassFactory.getClassFinder();
-//    private ClassFinder cf = (ClassFinder)ObjectHolder.getSingletoneMap().get("utils.ClassFinder");
+    private List<String> classNameList;
+    private static Map<String, Object> mmm;
     private static final Logger logger = Logger.getLogger(ClassListHolder.class);
 
-
-    private void parseClassList(String path){
-
+    public ClassListHolder(List<String> allClasses){
+        classNameList = allClasses;
         classList = new ArrayList<Class>();
-        List<String> allClasses = cf.getPackageClassess(path);
+    }
 
-        for(String str:allClasses){
+    public Map<String, Object> goSingletoneMap() {
+        mmm = new HashMap<String, Object>();
+        try {
+            for (Class clazz : classList){
+                mmm.put(clazz.getCanonicalName(), clazz.newInstance());
+            }
+            return mmm;
+        } catch (Exception e) {
+            logger.error(e);
+            return null;
+        }
+    }
+
+    public static Map<String, Object> getSingletoneMap() {
+        return mmm;
+    }
+
+    public List<Class> parseClassList(){
+        for(String str:classNameList){
             try {
                 logger.info(Class.forName(str));
                 classList.add(Class.forName(str));
@@ -28,13 +45,14 @@ public class ClassListHolder {
                 e.printStackTrace();
             }
         }
+        return classList;
     }
 
-    public List<Class> getClassList(String path){
+    public List<Class> getClassList(){
 
         if(classList==null){
             logger.info("Class list is empty");
-            parseClassList(path);
+            parseClassList();
         }
         return classList;
     }
