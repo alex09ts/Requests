@@ -9,11 +9,7 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-<<<<<<< HEAD
     <junit.version>4.4</junit.version>
-=======
-    <junit.version>4.12</junit.version>
->>>>>>> 2275c7c848c3e74ad02400a131d2fa0f3ce2a750
     <apache.maven.war.plugin.version>2.6</apache.maven.war.plugin.version>
     <java.servlet-api.version>3.0.1</java.servlet-api.version>
     <jstl.version>1.2</jstl.version>
@@ -40,11 +36,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-<<<<<<< HEAD
       <version>${junit.version}</version>
-=======
-      <version>3.8.1</version>
->>>>>>> 2275c7c848c3e74ad02400a131d2fa0f3ce2a750
       <scope>test</scope>
     </dependency>
     <dependency>

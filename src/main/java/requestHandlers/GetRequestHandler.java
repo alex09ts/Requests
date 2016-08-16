@@ -10,11 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @ClassAnnotation(
-<<<<<<< HEAD
         requestClassUrl = "/RequestRedirect/GetRequest"
-=======
-        requestClassUrl = "/GetRequest"
->>>>>>> 2275c7c848c3e74ad02400a131d2fa0f3ce2a750
 )
 public class GetRequestHandler implements HandlerInterface {
 
