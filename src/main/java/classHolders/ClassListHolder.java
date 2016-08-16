@@ -39,6 +39,10 @@ public class ClassListHolder {
     public List<Class> parseClassList(){
         for(String str:classNameList){
             try {
+<<<<<<< HEAD
+=======
+                logger.info(Class.forName(str));
+>>>>>>> 2275c7c848c3e74ad02400a131d2fa0f3ce2a750
                 classList.add(Class.forName(str));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
